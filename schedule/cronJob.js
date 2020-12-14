@@ -1,5 +1,6 @@
 const cron = require('node-cron');
 const Message = require('../models/Message');
+const User = require('../models/User');
 const { textBroadcast } = require('../libs/broadcast');
 
 // test run every minutes
@@ -15,11 +16,15 @@ exports.cronJob = () => {
       obj => Date.parse(obj.scheduleTime) - Date.now() < 0
     );
 
+    const user = await User.findOne({
+      name: 'Teerapat',
+    });
+
     console.log('This message is ready to broadcast', readyToBroadcast);
 
     if (readyToBroadcast) {
       const targetBroadcastId = readyToBroadcast._id;
-      textBroadcast(readyToBroadcast.text);
+      textBroadcast(readyToBroadcast.text, user);
 
       await Message.findByIdAndUpdate(targetBroadcastId, {
         isSchedule: false,
