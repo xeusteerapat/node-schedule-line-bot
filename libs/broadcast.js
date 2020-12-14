@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-exports.textBroadcast = async text => {
+exports.textBroadcast = async (text, user) => {
   let data = JSON.stringify({
-    to: [process.env.MY_LINE_ID],
+    to: [user.lineId],
     messages: [
       {
         type: 'text',
@@ -16,7 +16,7 @@ exports.textBroadcast = async text => {
     url: `${process.env.LINE_MESSAGING_API}/multicast`,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.LINE_VONDER_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${user.lineToken}`,
     },
     data,
   };
