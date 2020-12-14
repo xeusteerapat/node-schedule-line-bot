@@ -1,5 +1,5 @@
 {
-  "name": "redis-scheduler",
+  "name": "node-linebot-scheduler",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
